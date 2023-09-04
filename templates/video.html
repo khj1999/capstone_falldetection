@@ -14,8 +14,8 @@
         }
 
         .camera-box {
-            width: 50%;
-            height: 90%;
+            width: 78%;
+            height: 80%;
             margin-bottom: 0px;
             border: 0px solid #ccc;
             padding: 0px;
@@ -26,14 +26,18 @@
             justify-content: start;
         }
         .text-box {
-            width: 50%;
-            height: 90%;
+            width: 22%;
+            height: 80%;
             margin-bottom: 0px;
             border: 0px solid #ccc;
             padding: 0px;
         }
+        .li{
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
 
-        video { max-width: 100%; display: block; margin: auto;}
+        img { width: 100%; display: block; margin: auto;}
     </style>
 </head>
 <body onload="Event_process(),hardware_data_inquiry(),timer()">
@@ -42,40 +46,23 @@
           <a class="navbar-brand" href="#"><center>CCTV 확인</center></a>
         </div>
     </nav>
+    <nav class="navbar navbar-dark bg-secondary">
+        <div class="container-fluid">
+          <span class="navbar-brand mb-0 h1">Camera</span>
+        </div>
+    </nav>
     <div class="camera-container">
         <div class="camera-box">
-            <nav class="navbar navbar-dark bg-secondary">
-                <div class="container-fluid">
-                  <span class="navbar-brand mb-0 h1">Camera 1</span>
-                </div>
-            </nav>
             <img src="{{ url_for('video_feed1') }}">
         </div>
-        <div class="camera-box">
-            <nav class="navbar navbar-dark bg-secondary">
-                <div class="container-fluid">
-                  <span class="navbar-brand mb-0 h1">Camera 2</span>
-                </div>
-            </nav>
-            <img src="{{ url_for('video_feed2') }}">
-        </div>
-        <!-- 추가적인 카메라 박스를 원하는 개수만큼 추가할 수 있습니다. -->
-    </div>
-    <div class = "text-container">
-        <div class="camera-box">
+        <div class="text-box">
             <ul class="list-group">
                 <li class="list-group-item"><div id="loc_1" class="loc_1"></div></li>
                 <li class="list-group-item"><div id="real_time" class="real_time"></div></li>
                 <li class="list-group-item"><div id="equipment_name1" class="equipment_name1"></div></li>
             </ul>
         </div>
-        <div class="camera-box">
-            <ul class="list-group">
-                <li class="list-group-item"><div id="loc_2" class="loc_2"></div></li>
-                <li class="list-group-item"><div id="real_time2" class="real_time2"></div></li>
-                <li class="list-group-item"><div id="equipment_name2" class="equipment_name2"></div></li>
-            </ul>
-        </div>
+        <!-- 추가적인 카메라 박스를 원하는 개수만큼 추가할 수 있습니다. -->
     </div>
 </body>
 </html>
@@ -85,7 +72,6 @@
     function Event_process(){
       var currentDate = new Date();
       var real_time = document.getElementById('real_time');
-      var real_time2 = document.getElementById('real_time2');
       var msg = "현재 시간 : ";
       msg += currentDate.getFullYear() + "년 ";
       msg += currentDate.getMonth() + "월 ";
@@ -94,7 +80,6 @@
       msg += currentDate.getMinutes() + "분 ";
       msg += currentDate.getSeconds() + "초"
       real_time.innerText = msg;
-      real_time2.innerText = msg;
 
       setTimeout(Event_process,1000);  //1초마다 갱신
     }
@@ -102,77 +87,14 @@
     function hardware_data_inquiry(){
         // 카메라 위치
         var loc_1 = document.getElementById('loc_1');
-        loc_1.innerText = "위치 : 부산광역시 동구 중앙로 999 1번 내부 카메라";
-
-        var loc_2 = document.getElementById('loc_2');
-        loc_2.innerText = "위치 : 부산광역시 동구 중앙로 999 2번 내부 카메라";
+        loc_1.innerText = "위치 : 노트북 연결 웹캠";
 
         // 장비명
         var equipment_name1 = document.getElementById('equipment_name1');
-        equipment_name1.innerText = "장비명 : cctv-beta-test-23ver";
-
-        var equipment_name2 = document.getElementById('equipment_name2');
-        equipment_name2.innerText = "장비명 : cctv-beta-test-23ver";
+        equipment_name1.innerText = "장비명 : Webcam";
     }
 
     function timer(){
         setTimeout(function(){location.reload();},45000);
     }
-
   </script>
-
-        <!-- .camera-box h3 {
-            margin: 0;
-            text-align: center;
-        }
-
-        .camera-box img {
-            width: 100%;
-            height: 100%;
-        } -->
-
-
-<!-- 
-        if(currentDate.getHours()>12){      //시간이 12보다 크다면 오후 아니면 오전
-            clock_msg += "오후 ";
-            clock_msg += currentDate.getHours()-12+"시 ";
-         }
-         else {
-           clock_msg += "오전 ";
-           clock_msg += currentDate.getHours()+"시 ";
-         } -->
-
-<!-- 
-         // 날짜
-         var divDay = document.getElementById('divDay');
-         var divDay2 = document.getElementById('divDay2');
-         var day_msg = "현재 날짜 : ";
-         day_msg += currentDate.getFullYear()+"년 ";
-         day_msg += currentDate.getMonth()+"월 ";
-         day_msg += currentDate.getDay()+"일"
-        
-         divDay.innerText = day_msg;
-         divDay2.innerText = day_msg;
-   
-         // 시간
-         var divClock = document.getElementById('divClock');
-         var divClock2 = document.getElementById('divClock2');
-         var clock_msg = "현재 시각 : ";
-         clock_msg += currentDate.getHours()+"시 ";
-         clock_msg += currentDate.getMinutes()+"분 ";
-         clock_msg += currentDate.getSeconds()+"초";
-   
-         divClock.innerText = clock_msg;
-         divClock2.innerText = clock_msg;
-          -->
-
-<!-- 
-          function alert(){
-            var currentDate = new Date();
-            var alert = document.getElementById('alert');
-            msg = "감지사항 : 없음";
-            alert.innerText = msg;
-            setTimeout(alert,10);
-            msg = "감지사항 : 쓰러짐을 감지하였습니다.";
-            alert.innerText = msg;
-        } -->
