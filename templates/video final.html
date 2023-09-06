@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <title>감시 카메라 확인</title>
+
+    <style>
+        .camera-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+        }
+
+        .camera-box {
+            width: 50%;
+            height: 90%;
+            margin-bottom: 0px;
+            border: 0px solid #ccc;
+            padding: 0px;
+        }
+        .text-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: start;
+        }
+        .text-box {
+            width: 50%;
+            height: 90%;
+            margin-bottom: 0px;
+            border: 0px solid #ccc;
+            padding: 0px;
+        }
+
+        video { max-width: 100%; display: block; margin: auto;}
+    </style>
+</head>
+<body onload="Event_process(),hardware_data_inquiry(),timer()">
+    <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"><center>CCTV 확인</center></a>
+        </div>
+    </nav>
+    <div class="camera-container">
+        <div class="camera-box">
+            <nav class="navbar navbar-dark bg-secondary">
+                <div class="container-fluid">
+                  <span class="navbar-brand mb-0 h1">Real time Video</span>
+                </div>
+            </nav>
+            <img src="{{ url_for('video_feed1') }}">
+        </div>
+        <div class="camera-box">
+            <nav class="navbar navbar-dark bg-secondary">
+                <div class="container-fluid">
+                  <span class="navbar-brand mb-0 h1">Recording Video</span>
+                </div>
+            </nav>
+            <video src="{{ url_for('static', filename='record_1.mp4') }}" autoplay loop muted></video>
+        </div>
+        <!-- 추가적인 카메라 박스를 원하는 개수만큼 추가할 수 있습니다. -->
+    </div>
+    <div class = "text-container">
+        <div class="camera-box">
+            <ul class="list-group">
+                <li class="list-group-item"><div id="loc_1" class="loc_1"></div></li>
+                <li class="list-group-item"><div id="real_time" class="real_time"></div></li>
+                <li class="list-group-item"><div id="equipment_name1" class="equipment_name1"></div></li>
+            </ul>
+        </div>
+        <div class="camera-box">
+            <ul class="list-group">
+                <li class="list-group-item"><div id="loc_2" class="loc_2"></div></li>
+                <li class="list-group-item"><div id="real_time2" class="real_time2"></div></li>
+                <li class="list-group-item"><div id="equipment_name2" class="equipment_name2"></div></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    function Event_process(){
+      var currentDate = new Date();
+      var real_time = document.getElementById('real_time');
+      var real_time2 = document.getElementById('real_time2');
+      var msg = "현재 시간 : ";
+      msg += currentDate.getFullYear() + "년 ";
+      msg += (currentDate.getMonth() + 1) + "월 ";
+      msg += currentDate.getDay() + "일 ";
+      msg += currentDate.getHours() + "시 ";
+      msg += currentDate.getMinutes() + "분 ";
+      msg += currentDate.getSeconds() + "초"
+      real_time.innerText = msg;
+      real_time2.innerText = msg;
+
+      setTimeout(Event_process,1000);  //1초마다 갱신
+    }
+
+    function hardware_data_inquiry(){
+        // 카메라 위치
+        var loc_1 = document.getElementById('loc_1');
+        loc_1.innerText = "위치 : 부산광역시 동구 중앙로 999 1번 내부 카메라";
+
+        var loc_2 = document.getElementById('loc_2');
+        loc_2.innerText = "위치 : 부산광역시 동구 중앙로 999 2번 내부 카메라";
+
+        // 장비명
+        var equipment_name1 = document.getElementById('equipment_name1');
+        equipment_name1.innerText = "장비명 : cctv-beta-test-23ver";
+
+        var equipment_name2 = document.getElementById('equipment_name2');
+        equipment_name2.innerText = "장비명 : cctv-beta-test-23ver";
+    }
+
+    function timer(){
+        setTimeout(function(){location.reload();},45000);
+    }
+
+  </script>
