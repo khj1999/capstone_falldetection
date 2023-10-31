@@ -40,7 +40,7 @@
         img { width: 100%; display: block; margin: auto;}
     </style>
 </head>
-<body onload="Event_process(),hardware_data_inquiry(),timer()">
+<body onload="Event_process(),hardware_data_inquiry()">
     <nav class="navbar navbar-dark bg-dark" aria-label="First navbar example">
         <div class="container-fluid">
           <a class="navbar-brand" href="#"><center>CCTV 확인</center></a>
@@ -92,9 +92,5 @@
         // 장비명
         var equipment_name1 = document.getElementById('equipment_name1');
         equipment_name1.innerText = "장비명 : ROYCHE FHD WEBCAM RPC-20F";
-    }
-
-    function timer(){
-        setTimeout(function(){location.reload();},45000);
     }
   </script>
